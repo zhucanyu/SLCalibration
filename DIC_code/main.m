@@ -3,34 +3,34 @@ close all
 clear all
 
 % it is a DIC code to find matching coordinates of 'centers*.csv' in
-% '*.png'in 'speckle.png' and save them as 'centersnew*.png'
-% Ö÷º¯ÊıÖ÷Òª¶ÁÈ¡ÒªÆ¥ÅäµÄÁ½ÕÅÍ¼Æ¬£¬½øĞĞ¼ÆËã
+% '*.png'in 'speckle.png' and save them as 'centersnew*.csv'
+% ä¸»å‡½æ•°ä¸»è¦è¯»å–è¦åŒ¹é…çš„ä¸¤å¼ å›¾ç‰‡ï¼Œè¿›è¡Œè®¡ç®—
 files = dir(fullfile('board_pics\','*.bmp'));
 filesd = dir(fullfile('speckle_pic\','*.bmp'));
 lengthFiles = length(files);
 
-r=30;%¶¨Òå×ÓÇø°ë¾¶ (subsets radius)
-search_radius = 200;%¶¨ÒåËÑË÷°ë¾¶ (search radius)
+r=30;%å®šä¹‰å­åŒºåŠå¾„ (subsets radius)
+search_radius = 200;%å®šä¹‰æœç´¢åŠå¾„ (search radius)
 
-for count = 1:lengthFiles/2 %ÖğÒ»¶ÁÈ¡Í¼ÏñcountÎª¼ÆËãÍ¼Æ¬±àºÅ
+for count = 1:lengthFiles/2 %é€ä¸€è¯»å–å›¾åƒcountä¸ºè®¡ç®—å›¾ç‰‡ç¼–å·
 
 ei  = 1;bi=1;
 err=nan;bug=nan;
 filename   =   strcat('centers',num2str(count),'.csv');
-image_reference = uint8(imread(strcat('board_pics\',files(2*count-1).name)));%ÎÄ¼şËùÔÚÂ·¾¶
+image_reference = uint8(imread(strcat('board_pics\',files(2*count-1).name)));%æ–‡ä»¶æ‰€åœ¨è·¯å¾„
 
 figure(count);
 imshow(image_reference);
-title(strcat('Ô­Ê¼Í¼Ïñ',num2str(count)));
+title(strcat('åŸå§‹å›¾åƒ',num2str(count)));
 hold on
-%¶ÁÈë²Î¿¼Í¼ÖĞÊ¶±ğ³öµÄÔ²µãÖĞĞÄ×ø±ê×÷Îª¼ÆËãÖĞĞÄµã
+%è¯»å…¥å‚è€ƒå›¾ä¸­è¯†åˆ«å‡ºçš„åœ†ç‚¹ä¸­å¿ƒåæ ‡ä½œä¸ºè®¡ç®—ä¸­å¿ƒç‚¹
 centers=csvread(filename);
 
 POI_point_count = size(centers,1); 
 x_pos1(:)=NaN;
 y_pos1(:)=NaN;
 
-for i=1:POI_point_count      %»­³ö¼ÆËãµãÖĞĞÄÎ»ÖÃ
+for i=1:POI_point_count      %ç”»å‡ºè®¡ç®—ç‚¹ä¸­å¿ƒä½ç½®
             x_pos1(i) =centers(i,1);
             y_pos1(i) =centers(i,2);
            plot(x_pos1,y_pos1,'*b');       
@@ -40,18 +40,18 @@ hold off
  
 filename   =   strcat('centers',num2str(count),'.csv');
 
-image_reference = uint8(imread(strcat('board_pics\',files(2*count-1).name)));%ÎÄ¼şËùÔÚÂ·¾¶
+image_reference = uint8(imread(strcat('board_pics\',files(2*count-1).name)));%æ–‡ä»¶æ‰€åœ¨è·¯å¾„
 image_deformed = uint8(imread(strcat('speckle_pic\',filesd(1).name)));
 figure(count);
 hold on
-[height, width]=size(image_reference);%È¡³öÍ¼Æ¬´óĞ¡
+[height, width]=size(image_reference);%å–å‡ºå›¾ç‰‡å¤§å°
 
-centers=csvread(filename); %¶ÁÈë²Î¿¼Í¼ÖĞÊ¶±ğ³öµÄÔ²µãÖĞĞÄ×ø±ê×÷Îª¼ÆËãÖĞĞÄµã
+centers=csvread(filename); %è¯»å…¥å‚è€ƒå›¾ä¸­è¯†åˆ«å‡ºçš„åœ†ç‚¹ä¸­å¿ƒåæ ‡ä½œä¸ºè®¡ç®—ä¸­å¿ƒç‚¹
 POI_point_count = size(centers,1); 
 x_pos1(POI_point_count)=NaN;
 y_pos1(POI_point_count)=NaN;
 
-for i=1:POI_point_count      %¸ø¼ÆËãµãÖĞĞÄ±ê¼Ç
+for i=1:POI_point_count      %ç»™è®¡ç®—ç‚¹ä¸­å¿ƒæ ‡è®°
             x_pos1(i) =centers(i,1);
             y_pos1(i) =centers(i,2);          
 end
@@ -61,7 +61,7 @@ end
 
 figure(count+100);
 imshow(image_deformed);
-title('»ù×¼Í¼Ïñ');
+title('åŸºå‡†å›¾åƒ');
 hold on
 
 result_matx(POI_point_count)=NaN;
@@ -69,7 +69,7 @@ result_maty(POI_point_count)=NaN;
 
 x_pos(POI_point_count)=NaN;
 y_pos(POI_point_count)=NaN;
-    for i=1:POI_point_count   %Ê¹µÃ²Î¿¼ÖµÈ¡Î»ÓÚÕûÏñËØÎ»ÖÃ£¬±ÜÃâÔÚ¿ªÊ¼ÒıÈë²åÖµÎó²î
+    for i=1:POI_point_count   %ä½¿å¾—å‚è€ƒå€¼å–ä½äºæ•´åƒç´ ä½ç½®ï¼Œé¿å…åœ¨å¼€å§‹å¼•å…¥æ’å€¼è¯¯å·®
      x_pos(i)=fix(x_pos1(i));
      y_pos(i)=fix(y_pos1(i));
     end
@@ -79,7 +79,7 @@ y_pos(POI_point_count)=NaN;
          refer_subset = zeros(2*r+1,2*r+1);
          deformed_subset = zeros(2*r+1 ,2*r+1);
           normb=10;   
-            % ²Î¿¼Ä£°åµÄ»Ò¶È¾ØÕó
+            % å‚è€ƒæ¨¡æ¿çš„ç°åº¦çŸ©é˜µ
             for m = y_pos(i) -r : y_pos(i) +r
                 for n = x_pos(i) -r : x_pos(i) +r
                     patch_m = m - y_pos(i) + r + 1;
@@ -90,11 +90,11 @@ y_pos(POI_point_count)=NaN;
             end
             m=NaN;
             n=NaN;
-            % ËÑË÷·¶Î§ÄÚ²¿½øĞĞÆ¥Åä
-            correlation_coefficient_mat_per_point = zeros(2*search_radius+1,2*search_radius+1); % ´æ´¢ËÑË÷·¶Î§ÄÚµÄÏà¹ØÖµ¾ØÕó£¬²¢±È½ÏÆäÖĞ×îĞ¡µÄ£¬¼´ÎªÕûÏñËØÆ¥Åäµã
-            for re_deformed_subset_center_y = y_pos(i) - search_radius : y_pos(i) + search_radius % ËÑË÷·¶Î§
+            % æœç´¢èŒƒå›´å†…éƒ¨è¿›è¡ŒåŒ¹é…
+            correlation_coefficient_mat_per_point = zeros(2*search_radius+1,2*search_radius+1); % å­˜å‚¨æœç´¢èŒƒå›´å†…çš„ç›¸å…³å€¼çŸ©é˜µï¼Œå¹¶æ¯”è¾ƒå…¶ä¸­æœ€å°çš„ï¼Œå³ä¸ºæ•´åƒç´ åŒ¹é…ç‚¹
+            for re_deformed_subset_center_y = y_pos(i) - search_radius : y_pos(i) + search_radius % æœç´¢èŒƒå›´
                  for re_deformed_subset_center_x= x_pos(i) -search_radius : x_pos(i) + search_radius 
-                 % ÒÔ¸ÃµãÎªÖĞµã£¬¹¹Ôì±äĞÎ×ÓÇø,Ö»ÊÇÆ½ÒÆ
+                 % ä»¥è¯¥ç‚¹ä¸ºä¸­ç‚¹ï¼Œæ„é€ å˜å½¢å­åŒº,åªæ˜¯å¹³ç§»
                     for m = re_deformed_subset_center_y - r : re_deformed_subset_center_y + r  
                          for n = re_deformed_subset_center_x - r : re_deformed_subset_center_x +r
                                 patch_m = m - re_deformed_subset_center_y +r + 1 ;
@@ -105,7 +105,7 @@ y_pos(POI_point_count)=NaN;
                          end
                      end    
                         
-                     correlation_coefficient = Calc_correlation_coefficient(refer_subset,deformed_subset);%Ïà¹ØÏµÊı¼ÆËã
+                     correlation_coefficient = Calc_correlation_coefficient(refer_subset,deformed_subset);%ç›¸å…³ç³»æ•°è®¡ç®—
                       
                      index_k = re_deformed_subset_center_y - y_pos(i) + search_radius + 1;
                      index_l = re_deformed_subset_center_x - x_pos(i) + search_radius + 1;
@@ -123,7 +123,7 @@ y_pos(POI_point_count)=NaN;
             result_matx(i)=resultx;
             result_maty(i)=resulty;
             
-            %ÓÃÒÔÉÏ½á¹û×÷Îªsub-pixel¼ÆËãµÄ³õÖµ¹À¼Æ£¬ÓÃic_gn·½·¨×öÑÇÏñËØ¼ÆËã
+            %ç”¨ä»¥ä¸Šç»“æœä½œä¸ºsub-pixelè®¡ç®—çš„åˆå€¼ä¼°è®¡ï¼Œç”¨ic_gnæ–¹æ³•åšäºšåƒç´ è®¡ç®—
             U= resultx-x_pos(i);
             V= resulty-y_pos(i);
             
@@ -131,14 +131,14 @@ y_pos(POI_point_count)=NaN;
             sub_v_result_maty(i)=V;
             
             %IC_GN
-            P=[U,0,0,V,0,0].'; %µü´úĞÎº¯Êı²ÎÊı³õÖµ
-            middle_mat=Middle_mat(refer_subset,r); %¼ÆËã²Î¿¼×ÓÇøÑÅ¸÷±È¾ØÕó
+            P=[U,0,0,V,0,0].'; %è¿­ä»£å½¢å‡½æ•°å‚æ•°åˆå€¼
+            middle_mat=Middle_mat(refer_subset,r); %è®¡ç®—å‚è€ƒå­åŒºé›…å„æ¯”çŸ©é˜µ
  
             for IT_count=1:20
-                interpolation_deform_subset=Interpolation_deform(image_deformed,P,x_pos(i),y_pos(i),r);%²åÖµ¼ÆËãÄ¿±ê×ÓÇø»Ò¶È
+                interpolation_deform_subset=Interpolation_deform(image_deformed,P,x_pos(i),y_pos(i),r);%æ’å€¼è®¡ç®—ç›®æ ‡å­åŒºç°åº¦
                 [delta_P,P_next]=IC_GN2(middle_mat,refer_subset,interpolation_deform_subset,r,P);
                 P=P_next;
-                norm=sqrt(delta_P(1)^2+(delta_P(2)*r)^2+(delta_P(3)*r)^2+delta_P(4)^2+(delta_P(5)*r)^2+(delta_P(6)*r)^2);%PµÄ·¶Êı
+                norm=sqrt(delta_P(1)^2+(delta_P(2)*r)^2+(delta_P(3)*r)^2+delta_P(4)^2+(delta_P(5)*r)^2+(delta_P(6)*r)^2);%Pçš„èŒƒæ•°
                 fprintf('%d , %d, %f\n',i,IT_count,norm);
                if norm<=0.01                    
                    break
@@ -149,7 +149,7 @@ y_pos(POI_point_count)=NaN;
                    bi=bi+1;
                    break
                 end
-               %ÅĞ¶Ï£¬Æ«ÀëÕûÏñËØµãÌ«¶à;
+               %åˆ¤æ–­ï¼Œåç¦»æ•´åƒç´ ç‚¹å¤ªå¤š;
             end
             
             if (IT_count>400)
@@ -159,7 +159,7 @@ y_pos(POI_point_count)=NaN;
             sub_u_result_matx(i)=P(1);
             sub_v_result_maty(i)=P(4);
             
-            %»­³ö¼ÆËã½á¹ûÎ»ÖÃ
+            %ç”»å‡ºè®¡ç®—ç»“æœä½ç½®
     
             x_posnew(i) =x_pos1(i)+sub_u_result_matx(i);
             y_posnew(i) =y_pos1(i)+sub_v_result_maty(i);
@@ -173,7 +173,7 @@ y_pos(POI_point_count)=NaN;
 
     
     %{
-for i=1:POI_point_count      %»­³ö¼ÆËã½á¹ûÎ»ÖÃ
+for i=1:POI_point_count      %ç”»å‡ºè®¡ç®—ç»“æœä½ç½®
     
             x_posnew(i) =x_pos1(i)+sub_u_result_matx(i);
             y_posnew(i) =y_pos1(i)+sub_v_result_maty(i);
