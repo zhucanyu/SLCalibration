@@ -1,0 +1,13 @@
+{
+  "data_dir": "./example_data",
+  "n_images": 5,
+  "board_width": 5,
+  "board_height": 3,
+  "symmetric": false,
+  "r": 30,
+  "search_radius": 200,
+  "search_mode": "propagate",
+  "order": 1,
+  "img_ext": "bmp",
+  "visualize": false
+}
